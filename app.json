@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Hourglass",
-    "slug": "sandbox_hourglass",
+    "name": "BudgetBully",
+    "slug": "Budget_Bully",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -26,10 +26,7 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      "expo-font"
-    ],
+    "plugins": ["expo-router", "expo-font"],
     "experiments": {
       "typedRoutes": true
     }
