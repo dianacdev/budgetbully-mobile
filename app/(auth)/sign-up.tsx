@@ -1,27 +1,26 @@
-import { ScrollView, View, Text, Image, Alert } from "react-native";
-import React, { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { images, icons } from "@/constants";
-import InputField from "@/components/InputField";
-import CustomButton from "@/components/CustomButton";
-import { Link, router } from "expo-router";
-import OAuth from "@/components/OAuth";
-import { useSignUp } from "@clerk/clerk-expo";
-import { ReactNativeModal } from "react-native-modal";
+import { ScrollView, View, Text, Image, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { images, icons } from '@/constants';
+import InputField from '@/components/InputField';
+import CustomButton from '@/components/CustomButton';
+import { Link, router } from 'expo-router';
+import OAuth from '@/components/OAuth';
+import { useSignUp } from '@clerk/clerk-expo';
+import { ReactNativeModal } from 'react-native-modal';
 
 const Signup = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
 
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
+    name: '',
+    email: '',
+    password: '',
   });
 
   const [verification, setVerification] = useState({
-    state: "default", //This line can be altered for testing the verification process, "default", "pending","success"
-    error: "",
-    code: "",
+    state: 'default', //This line can be altered for testing the verification process, "default", "pending","success"
+    error: '',
+    code: '',
   });
 
   const onSignUpPress = async () => {
@@ -35,17 +34,17 @@ const Signup = () => {
         password: form.password,
       });
 
-      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+      await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
 
       setVerification({
         ...verification,
-        state: "pending",
+        state: 'pending',
       });
     } catch (err: any) {
       // See https://clerk.com/docs/custom-flows/error-handling
       // for more info on error handling
       // console.error(JSON.stringify(err, null, 2));
-      Alert.alert("Error", err.errors[0].longMessage);
+      Alert.alert('Error', err.errors[0].longMessage);
     }
   };
 
@@ -59,21 +58,21 @@ const Signup = () => {
         code: verification.code,
       });
 
-      if (completeSignUp.status === "complete") {
+      if (completeSignUp.status === 'complete') {
         //TODO!: Create a user in the DB
         await setActive({ session: completeSignUp.createdSessionId });
-        setVerification({ ...verification, state: "success" });
+        setVerification({ ...verification, state: 'success' });
       } else {
         setVerification({
           ...verification,
-          state: "failed",
-          error: "Verification failed, please try again.",
+          state: 'failed',
+          error: 'Verification failed, please try again.',
         });
       }
     } catch (err: any) {
       setVerification({
         ...verification,
-        state: "failed",
+        state: 'failed',
         error: err.errors[0].longMessage,
       });
     }
@@ -111,11 +110,7 @@ const Signup = () => {
             value={form.password}
             onChangeText={(value: any) => setForm({ ...form, password: value })}
           />
-          <CustomButton
-            title="Sign Up"
-            onPress={onSignUpPress}
-            className="mt-6"
-          />
+          <CustomButton title="Sign Up" onPress={onSignUpPress} className="mt-6" />
           <OAuth />
           <Link href="/log-in" className="mt-10 text-center text-neutral-400">
             <Text className="text-center">Already have an account? </Text>
@@ -124,18 +119,13 @@ const Signup = () => {
         </View>
         {/* This only appears when pending state has been set. */}
         <ReactNativeModal
-          isVisible={verification.state === "pending"}
-          onModalHide={() =>
-            setVerification({ ...verification, state: "success" })
-          }
-        >
+          isVisible={verification.state === 'pending'}
+          onModalHide={() => setVerification({ ...verification, state: 'success' })}>
           <View className="bg-neutral-800 px-7 py-9 rounded-2xl min-h-[300px]">
-            <Text className="text-white text-3xl font-extrabold mb-2">
-              Verification
-            </Text>
+            <Text className="text-white text-3xl font-extrabold mb-2">Verification</Text>
             <Text className="text-base font-normal mb-5 text-gray-400 text-center">
-              A verification code has been sent to your email ({form.email}).
-              Please enter the code below.
+              A verification code has been sent to your email ({form.email}). Please enter the code
+              below.
             </Text>
             <InputField
               label="Code"
@@ -143,14 +133,10 @@ const Signup = () => {
               placeholder="123456"
               value={verification.code}
               keyboardType="numeric"
-              onChangeText={(code: any) =>
-                setVerification({ ...verification, code })
-              }
+              onChangeText={(code: any) => setVerification({ ...verification, code })}
             />
             {verification.error && (
-              <Text className="text-red-500 text-sm  mt-1">
-                {verification.error}
-              </Text>
+              <Text className="text-red-500 text-sm  mt-1">{verification.error}</Text>
             )}
             <CustomButton
               title="Verify Email"
@@ -160,21 +146,16 @@ const Signup = () => {
           </View>
         </ReactNativeModal>
         {/* This only appears when (verification) success state has been set. */}
-        <ReactNativeModal isVisible={verification.state === "success"}>
+        <ReactNativeModal isVisible={verification.state === 'success'}>
           <View className="bg-neutral-800 px-7 py-9 rounded-2xl min-h-[300px]">
-            <Image
-              source={images.check}
-              className="w-[110px] h-[110px] mx-auto my-5"
-            />
-            <Text className="text-white text-3xl font-bold text-center">
-              Verified
-            </Text>
+            <Image source={images.check} className="w-[110px] h-[110px] mx-auto my-5" />
+            <Text className="text-white text-3xl font-bold text-center">Verified</Text>
             <Text className="text-base text-gray-400 text-center">
               Account verified successfully!
             </Text>
             <CustomButton
               title="Exit to Home"
-              onPress={() => router.push("/(root)/(tabs)/home")}
+              onPress={() => router.push('/(root)/(tabs)/home')}
               className="mt-5"
             />
           </View>

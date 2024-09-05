@@ -1,13 +1,16 @@
-declare interface ButtonProps extends TouchableOpacityProps {
+import { TouchableOpacityProps, TextInputProps } from 'react-native';
+
+export interface ButtonProps extends TouchableOpacityProps {
   title: string;
-  bgVariant?: "primary" | "secondary" | "danger" | "outline" | "success";
-  textVariant?: "primary" | "default" | "secondary" | "danger" | "success";
+  bgVariant?: 'primary' | 'secondary' | 'danger' | 'outline' | 'success';
+  textVariant?: 'primary' | 'default' | 'secondary' | 'danger' | 'success';
   IconLeft?: React.ComponentType<any>;
   IconRight?: React.ComponentType<any>;
   className?: string;
+  onPress?: () => void;
 }
 
-declare interface InputFieldProps extends TextInputProps {
+export interface InputFieldProps extends TextInputProps {
   label: string;
   icon?: any;
   secureTextEntry?: boolean;

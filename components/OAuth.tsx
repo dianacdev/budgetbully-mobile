@@ -1,11 +1,11 @@
-import { View, Text, Image } from "react-native";
-import CustomButton from "./CustomButton";
-import { icons } from "@/constants";
+import { View, Text, Image } from 'react-native';
+import CustomButton from './CustomButton';
+import { icons } from '@/constants';
 
 const OAuth = () => {
-    const handleGoogleSignIn = async() => {
-        console.log("Google Sign In");
-    }
+  const handleGoogleSignIn = async () => {
+    console.log('Google Sign In');
+  };
 
   return (
     <View>
@@ -21,11 +21,7 @@ const OAuth = () => {
         textVariant="primary"
         onPress={handleGoogleSignIn}
         IconLeft={() => (
-          <Image
-            source={icons.google}
-            resizeMode="contain"
-            className="w-5 h-5 mx-2"
-          />
+          <Image source={icons.google} resizeMode="contain" className="w-5 h-5 mx-2" />
         )}
       />
     </View>
