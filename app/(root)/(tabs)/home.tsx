@@ -3,9 +3,28 @@ import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
 import { Link } from 'expo-router';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useEffect, useState } from 'react';
+import { callServer } from '@/lib/utils';
 
 export default function Page() {
   const { user } = useUser();
+  const [linkTokenData, setLinkTokenData] = useState(null);
+  const [isLinkDisabled, setIsLinkDisabled] = useState(true);
+
+  useEffect(() => {
+    const initializeLink = async () => {
+      const data = await callServer('http://192.168.202.1:3000/plaid', false);
+      console.log(`Received link token data ${JSON.stringify(data)}`);
+      setLinkTokenData(data);
+
+      if (data != null) {
+        setIsLinkDisabled(false); // Enable the button when data is not null
+      }
+    };
+
+    // Call the async function to initialize the link token
+    initializeLink();
+  }, []);
 
   return (
     <SafeAreaView className="flex-1 justify-center items-center bg-gray-100">
@@ -16,9 +35,9 @@ export default function Page() {
           </Text>
           <CustomButton
             title="Link Account"
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md">
-            Link Account
-          </CustomButton>
+            disabled={isLinkDisabled}
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md"
+          />
         </View>
       </SignedIn>
 

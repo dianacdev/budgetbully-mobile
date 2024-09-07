@@ -8,9 +8,10 @@ const Page = () => {
   const { isSignedIn } = useAuth();
 
   if (isSignedIn) {
+    console.log('User is signed in, redirecting to home page');
     return <Redirect href={'/(root)/(tabs)/home'} />;
   }
-
+  console.log('User is not signed in, redirecting to welcome page');
   return <Redirect href={'/(auth)/welcome'} />;
 };
 
