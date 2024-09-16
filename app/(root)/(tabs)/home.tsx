@@ -8,12 +8,14 @@ import { callServer } from '@/lib/utils';
 
 export default function Page() {
   const { user } = useUser();
-  const [linkTokenData, setLinkTokenData] = useState(null);
+  const [linkTokenData, setLinkTokenData] = useState(null); // Contains url to hosted link
   const [isLinkDisabled, setIsLinkDisabled] = useState(true);
 
   useEffect(() => {
     const initializeLink = async () => {
-      const data = await callServer('http://192.168.202.1:3000/plaid', false);
+      const data = await callServer('http://192.168.202.1:3000/plaid', true, {
+        client_user_id: user?.id,
+      });
       console.log(`Received link token data ${JSON.stringify(data)}`);
       setLinkTokenData(data);
 
@@ -30,12 +32,16 @@ export default function Page() {
     <SafeAreaView className="flex-1 justify-center items-center bg-gray-100">
       <SignedIn>
         <View className="flex-col justify-center items-center space-x-4 mt-4">
-          <Text className="text-lg font-semibold text-gray-900 mb-4">
-            Hello {user?.emailAddresses[0].emailAddress}
-          </Text>
+          <Text className="text-lg font-semibold text-gray-900 mb-4">Hello {user?.firstName}</Text>
           <CustomButton
             title="Link Account"
             disabled={isLinkDisabled}
+            onPress={() => {
+              console.log('Linking account');
+              if (linkTokenData) {
+                // Open url in browser
+              }
+            }}
             className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md"
           />
         </View>

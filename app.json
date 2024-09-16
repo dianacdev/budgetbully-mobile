@@ -1,7 +1,8 @@
 {
   "expo": {
+    "jsEngine": "jsc",
     "name": "BudgetBully",
-    "slug": "Budget_Bully",
+    "slug": "budget-bully",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -20,7 +21,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#111111"
       },
-      "package": "com.connor1016329.Budget_Bully"
+      "package": "com.connor1016329.budgetbully"
     },
     "web": {
       "bundler": "metro",
@@ -36,7 +37,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "72bdc149-d253-454c-b31a-c4607d692bbf"
+        "projectId": "312bdfcb-456a-4d44-8123-9ccdfdcff58d"
       }
     },
     "runtimeVersion": "1.0.0",

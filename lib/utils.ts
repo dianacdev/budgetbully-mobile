@@ -1,4 +1,12 @@
-export const callServer = async function (endpoint: string, isPost = false, postData = null) {
+interface PostData {
+  client_user_id?: string;
+}
+
+export const callServer = async function (
+  endpoint: string,
+  isPost = false,
+  postData: PostData | null = null,
+) {
   // Define the options object and include the method explicitly
   const optionsObj: { method: string; headers?: { 'Content-type': string }; body?: string } = isPost
     ? { method: 'POST' }

@@ -59,7 +59,6 @@ const Signup = () => {
       });
 
       if (completeSignUp.status === 'complete') {
-        //TODO!: Create a user in the DB
         await setActive({ session: completeSignUp.createdSessionId });
         setVerification({ ...verification, state: 'success' });
       } else {
