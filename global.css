@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .userInfoWrapper {
+    @apply flex-row px-2.5 py-5 border-b border-[#ccc] mb-2.5;
+  }
+
+  .navItemLabel {
+    @apply -ml-5 text-[18px];
+  }
+}
